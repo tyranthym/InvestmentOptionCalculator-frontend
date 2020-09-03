@@ -5,7 +5,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - typescript strict mode
 - react hook + context api for state management 
 
-
 ## Available Scripts
 
 In the project directory, you can run:
