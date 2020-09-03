@@ -1,5 +1,10 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Overview
+- An react app for calculating investment options 
+- typescript strict mode
+- react hook + context api for state management 
+
 ## Available Scripts
 
 In the project directory, you can run:
