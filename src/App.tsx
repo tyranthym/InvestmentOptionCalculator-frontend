@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Header,
-  Divider,
-  Grid,
-  GridRow,
-  GridColumn,
-  Container,
-  Segment,
-} from "semantic-ui-react";
+import { Header, Grid, GridRow, GridColumn, Segment } from "semantic-ui-react";
 import Calculator from "./components/Calculator";
 import CalculatorContextProvider from "./contexts/CalculatorContext";
 import InvestmentAmount from "./components/InvestmentAmount";
@@ -30,7 +22,7 @@ function App() {
         <FormContextProvider>
           <Segment className="investment-amount-segment">
             <InvestmentAmount />
-          </Segment>         
+          </Segment>
 
           <GridRow>
             <GridColumn width={8}>

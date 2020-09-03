@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Form, Input, Grid, Label, Divider } from "semantic-ui-react";
+import { Form, Input, Label, Divider } from "semantic-ui-react";
 import { InvestmentAmountContext } from "../contexts/CalculatorContext";
 
 const InvestmentAmount = () => {
