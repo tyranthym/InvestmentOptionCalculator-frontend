@@ -49,8 +49,7 @@ const Calculator = () => {
             investmentPercentage: option.investmentPercentage,
           };
           newCalculateROIRequest.options.push(optionRequest);
-        });
-      console.log(newCalculateROIRequest);
+        }); 
       formContext.updateFormData(newCalculateROIRequest);
       setIsSending(true);
     }
@@ -63,8 +62,7 @@ const Calculator = () => {
           "http://localhost:5000/api/investmentOptions/calculator",
           formContext.formDataState.calculateROIRequest
         )
-        .then((response) => {
-          console.log(response);
+        .then((response) => {     
           setROIResult(response.data);
         });
       setIsSending(false);

@@ -188,8 +188,7 @@ const CalculatorContextProvider = (props: { children: React.ReactNode }) => {
     investmentOption: IInvestmentOptionState
   ) => {
     const newOptions = investmentOptions.slice();
-    console.log("new option");
-    console.log(newOptions);
+
     let option = newOptions.find((option) => option.id === investmentOption.id);
     if (option) {
       option.investmentOption = investmentOption.investmentOption;
@@ -205,7 +204,7 @@ const CalculatorContextProvider = (props: { children: React.ReactNode }) => {
         "http://localhost:5000/api/investmentOptions"
       )
       .then((response) => {
-        console.log(response.data);
+
         let newOptions: IDropdownOptionState[] = [];
         response.data.investmentOptions.map((response, index) => {
           newOptions.push({

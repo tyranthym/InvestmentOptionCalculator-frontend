@@ -49,7 +49,7 @@ const InvestmentOptionItem = ({
           selection
           options={dropdownOptions}
           onChange={(e, data) => {
-            console.log(data.value);
+     
             dropdownOptionContext.updateDropdownOptions(data.value as number);
             let newInvestmentOption = { ...investmentOption };
             newInvestmentOption.investmentOption = data.value as number;
@@ -62,8 +62,7 @@ const InvestmentOptionItem = ({
           labelPosition="right"
           type="text"
           placeholder="Amount%"
-          onChange={(e, data) => {
-            console.log(data.value);
+          onChange={(e, data) => {    
             let newInvestmentOption = { ...investmentOption };
             newInvestmentOption.investmentPercentage = parseInt(data.value);
             if (!newInvestmentOption.investmentPercentage) {

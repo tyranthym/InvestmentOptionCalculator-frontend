@@ -30,10 +30,10 @@ const FormContextProvider = (props: { children: React.ReactNode }) => {
   });
 
   const updateFormData = (calculateROIRequest: CalculateROIRequest) => {
-    console.log(calculateROIRequest);
+
     const newFormData = { ...formData };
     newFormData.calculateROIRequest = calculateROIRequest;
-    console.log(newFormData);
+
     setFormData(newFormData);
   };
 
