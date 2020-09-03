@@ -5,6 +5,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - typescript strict mode
 - react hook + context api for state management 
 
+## Future Improvement
+- display total remaining % investment percentage on the fly when user typing for easy calculation
+- Input validation for all user-inputs
+
 ## Available Scripts
 
 In the project directory, you can run:
