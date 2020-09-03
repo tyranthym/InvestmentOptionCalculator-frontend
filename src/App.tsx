@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  Header,
+  Divider,
+  Grid,
+  GridRow,
+  GridColumn,
+  Container,
+  Segment,
+} from "semantic-ui-react";
+import Calculator from "./components/Calculator";
+import CalculatorContextProvider from "./contexts/CalculatorContext";
+import InvestmentAmount from "./components/InvestmentAmount";
+import FormContextProvider from "./contexts/FormContext";
+
+import "./App.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Grid centered>
+      <GridRow>
+        <GridColumn>
+          <Header as="h3" block className="nav-header">
+            Investment Option Calculator
+          </Header>
+        </GridColumn>
+      </GridRow>
+
+      <CalculatorContextProvider>
+        <FormContextProvider>
+          <Segment className="investment-amount-segment">
+            <InvestmentAmount />
+          </Segment>         
+
+          <GridRow>
+            <GridColumn width={8}>
+              <Calculator />
+            </GridColumn>
+          </GridRow>
+        </FormContextProvider>
+      </CalculatorContextProvider>
+    </Grid>
   );
 }
 
