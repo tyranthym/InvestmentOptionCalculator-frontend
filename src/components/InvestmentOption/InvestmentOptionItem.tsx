@@ -67,7 +67,8 @@ const InvestmentOptionItem = ({
     const newPercentage = validateInvestmentPercentage(
       newInvestmentOption.id,
       Number(data.value)
-    );    
+    );
+    event.target.value = newPercentage.toString();
     newInvestmentOption.investmentPercentage = newPercentage;
     if (!newInvestmentOption.investmentPercentage) {
       newInvestmentOption.investmentPercentage = 0;
@@ -96,7 +97,6 @@ const InvestmentOptionItem = ({
           type="text"
           placeholder="value between 0 - 100"
           onChange={(e, data) => handleInvestmentPercentageOnChange(e, data)}
-          
         >
           <input type="number" min="0" max="100" />
           <Label>%</Label>
