@@ -27,7 +27,9 @@ const InvestmentOptionItem = ({
     updateDropdownOptions,
     updateInvestmentOptions,
   } = useContext(DropdownOptionContext);
-  const { removeInvestmentOption } = useContext(InvestmentOptionContext);
+  const { removeInvestmentOption, validateInvestmentPercentage } = useContext(
+    InvestmentOptionContext
+  );
   const { investmentAmount, updateInvestmentPercentage } = useContext(
     InvestmentAmountContext
   );
@@ -62,7 +64,11 @@ const InvestmentOptionItem = ({
     data: InputOnChangeData
   ) => {
     let newInvestmentOption = { ...investmentOption };
-    newInvestmentOption.investmentPercentage = Number(data.value);
+    const newPercentage = validateInvestmentPercentage(
+      newInvestmentOption.id,
+      Number(data.value)
+    );    
+    newInvestmentOption.investmentPercentage = newPercentage;
     if (!newInvestmentOption.investmentPercentage) {
       newInvestmentOption.investmentPercentage = 0;
     }
@@ -90,6 +96,7 @@ const InvestmentOptionItem = ({
           type="text"
           placeholder="value between 0 - 100"
           onChange={(e, data) => handleInvestmentPercentageOnChange(e, data)}
+          
         >
           <input type="number" min="0" max="100" />
           <Label>%</Label>

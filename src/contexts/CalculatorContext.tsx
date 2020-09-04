@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import axios from "axios";
 import { InvestmentOptionGetAllResponse } from "../models/responses";
 import { InvestmentOption } from "../models/requests";
+import InvestmentAmount from "../components/InvestmentAmount";
 
 interface IDropdownOptionState {
   id: number;
@@ -31,6 +32,10 @@ type InvestmentOptionContextType = {
   investmentOptions: IInvestmentOptionState[];
   addEmptyInvestmentOption: () => void;
   removeInvestmentOption: (investmentOption: IInvestmentOptionState) => void;
+  validateInvestmentPercentage: (
+    investmentOptionId: number,
+    newPercentage: number
+  ) => number;
 };
 
 type InvestmentAmountContextType = {
@@ -66,6 +71,7 @@ export const InvestmentOptionContext = createContext<
   investmentOptions: [],
   addEmptyInvestmentOption: Function,
   removeInvestmentOption: () => {},
+  validateInvestmentPercentage: () => 0,
 });
 
 //private
@@ -149,6 +155,32 @@ const CalculatorContextProvider = (props: { children: React.ReactNode }) => {
       newInvestmentAmount.totalPercentage
     );
     setInvestmentAmount(newInvestmentAmount);
+  };
+
+  const validateInvestmentPercentage = (
+    investmentOptionId: number,
+    newPercentage: number
+  ): number => {
+    if (newPercentage <= 0) {
+      newPercentage = 0;
+    }
+    const investmentOption = investmentOptions.find(
+      (option) => option.id === investmentOptionId
+    );
+    if (
+      investmentOption &&
+      investmentAmount.totalPercentage -
+        investmentOption.investmentPercentage +
+        newPercentage >
+        100
+    ) {
+      newPercentage =
+        100 -
+        (investmentAmount.totalPercentage -
+          investmentOption.investmentPercentage);
+    }
+
+    return newPercentage;
   };
 
   // InvestmentAmountContext
@@ -244,6 +276,7 @@ const CalculatorContextProvider = (props: { children: React.ReactNode }) => {
           investmentOptions,
           addEmptyInvestmentOption,
           removeInvestmentOption,
+          validateInvestmentPercentage,
         }}
       >
         <InvestmentAmountContext.Provider
