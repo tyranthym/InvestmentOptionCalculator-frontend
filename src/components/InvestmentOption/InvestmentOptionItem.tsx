@@ -22,11 +22,17 @@ const InvestmentOptionItem = ({
 }: {
   investmentOption: IInvestmentOptionState;
 }) => {
-  const dropdownOptionContext = useContext(DropdownOptionContext);
-  const investmentOptionContext = useContext(InvestmentOptionContext);
-  const investmentAmountContext = useContext(InvestmentAmountContext);
+  const {
+    dropdownOptions,
+    updateDropdownOptions,
+    updateInvestmentOptions,
+  } = useContext(DropdownOptionContext);
+  const { removeInvestmentOption } = useContext(InvestmentOptionContext);
+  const { investmentAmount, updateInvestmentPercentage } = useContext(
+    InvestmentAmountContext
+  );
 
-  const dropdownOptions = dropdownOptionContext.dropdownOptions
+  const dropdownListOptions = dropdownOptions
     .filter((option) => {
       return (
         !option.isSelected ||
@@ -45,10 +51,10 @@ const InvestmentOptionItem = ({
     event: React.SyntheticEvent<HTMLElement>,
     data: DropdownProps
   ) => {
-    dropdownOptionContext.updateDropdownOptions(data.value as number);
+    updateDropdownOptions(data.value as number);
     let newInvestmentOption = { ...investmentOption };
     newInvestmentOption.investmentOption = data.value as number;
-    dropdownOptionContext.updateInvestmentOptions(newInvestmentOption);
+    updateInvestmentOptions(newInvestmentOption);
   };
 
   const handleInvestmentPercentageOnChange = (
@@ -56,13 +62,13 @@ const InvestmentOptionItem = ({
     data: InputOnChangeData
   ) => {
     let newInvestmentOption = { ...investmentOption };
-    newInvestmentOption.investmentPercentage = parseInt(data.value);
+    newInvestmentOption.investmentPercentage = Number(data.value);
     if (!newInvestmentOption.investmentPercentage) {
       newInvestmentOption.investmentPercentage = 0;
     }
-    dropdownOptionContext.updateInvestmentOptions(newInvestmentOption);
-    investmentAmountContext.updateInvestmentPercentage(
-      investmentAmountContext.investmentAmount.totalPercentage,
+    updateInvestmentOptions(newInvestmentOption);
+    updateInvestmentPercentage(
+      investmentAmount.totalPercentage,
       newInvestmentOption.investmentPercentage
     );
   };
@@ -74,7 +80,7 @@ const InvestmentOptionItem = ({
           placeholder="--select--"
           fluid
           selection
-          options={dropdownOptions}
+          options={dropdownListOptions}
           onChange={(e, data) => handleDropdownOnChange(e, data)}
         />
       </FormField>
@@ -93,9 +99,7 @@ const InvestmentOptionItem = ({
         <Button
           icon
           color="red"
-          onClick={(e) =>
-            investmentOptionContext.removeInvestmentOption(investmentOption)
-          }
+          onClick={(e) => removeInvestmentOption(investmentOption)}
         >
           <Icon name="minus" />
         </Button>

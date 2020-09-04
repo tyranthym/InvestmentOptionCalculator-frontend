@@ -16,7 +16,7 @@ const InvestmentAmount = () => {
             defaultValue={investmentAmount.totalAmount}
             labelPosition="right"
             type="number"
-            onChange={(e) => updateAvailableAmount(parseInt(e.target.value))}
+            onChange={(e) => updateAvailableAmount(Number(e.target.value))}
           >
             <Label basic>$</Label>
             <input />

@@ -26,10 +26,10 @@ const Calculator = () => {
   });
 
   const [isSending, setIsSending] = useState<boolean>(false);
-  const formContext = useContext(FormContext);
-  const investmentOptionContext = useContext(InvestmentOptionContext);
+  const { formDataState, updateFormData } = useContext(FormContext);
+  const { investmentOptions } = useContext(InvestmentOptionContext);
 
-  const investmentAmountContext = useContext(InvestmentAmountContext);
+  const { investmentAmount } = useContext(InvestmentAmountContext);
 
   const handleOnTabChange = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -38,10 +38,10 @@ const Calculator = () => {
     if (data && data.activeIndex === 1) {
       //sending request only when switching to ROI tab
       const newCalculateROIRequest: CalculateROIRequest = {
-        totalAmount: investmentAmountContext.investmentAmount.totalAmount,
+        totalAmount: investmentAmount.totalAmount,
         options: [],
       };
-      investmentOptionContext.investmentOptions
+      investmentOptions
         .filter((option) => option.investmentOption !== null)
         .map((option) => {
           const optionRequest: CalculateOptionRequest = {
@@ -49,8 +49,8 @@ const Calculator = () => {
             investmentPercentage: option.investmentPercentage,
           };
           newCalculateROIRequest.options.push(optionRequest);
-        }); 
-      formContext.updateFormData(newCalculateROIRequest);
+        });
+      updateFormData(newCalculateROIRequest);
       setIsSending(true);
     }
   };
@@ -60,14 +60,14 @@ const Calculator = () => {
       axios
         .post<InvestmentOptionCalculationResponse>(
           "http://localhost:5000/api/investmentOptions/calculator",
-          formContext.formDataState.calculateROIRequest
+          formDataState.calculateROIRequest
         )
-        .then((response) => {     
+        .then((response) => {
           setROIResult(response.data);
         });
       setIsSending(false);
     }
-  }, [isSending, formContext.formDataState.calculateROIRequest]);
+  }, [isSending, formDataState.calculateROIRequest]);
 
   const panes = [
     {
