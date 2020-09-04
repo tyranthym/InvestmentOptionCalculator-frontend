@@ -30,7 +30,7 @@ type DropdownOptionContextType = {
 type InvestmentOptionContextType = {
   investmentOptions: IInvestmentOptionState[];
   addEmptyInvestmentOption: () => void;
-  removeInvestmentOption: (id: number) => void;
+  removeInvestmentOption: (investmentOption: IInvestmentOptionState) => void;
 };
 
 type InvestmentAmountContextType = {
@@ -73,7 +73,7 @@ const calculateAvailableAmount = (
   totalAmount: number,
   totalPercentage: number
 ) => {
-  let result = totalAmount * ((100 - totalPercentage) / 100)
+  let result = totalAmount * ((100 - totalPercentage) / 100);
   return Math.round((result + Number.EPSILON) * 100) / 100;
 };
 
@@ -126,12 +126,20 @@ const CalculatorContextProvider = (props: { children: React.ReactNode }) => {
     setCurrentIndex((preIndex) => preIndex + 1);
   };
 
-  const removeInvestmentOption = (id: number) => {
+  const removeInvestmentOption = (investmentOption: IInvestmentOptionState) => {
     if (investmentOptions.length === minOptionCount) {
       return;
     }
+    const newDropdownOptions = dropdownOptions.slice();
+    const dropdownOption = newDropdownOptions.find(
+      (option) => option.id === (investmentOption.investmentOption as number)
+    );
+    if (dropdownOption) {
+      dropdownOption.isSelected = false;
+    }
+    setDropdownOptions(newDropdownOptions);
     setInvestmentOptions(
-      investmentOptions.filter((option) => option.id !== id)
+      investmentOptions.filter((option) => option.id !== investmentOption.id)
     );
   };
 
@@ -204,7 +212,6 @@ const CalculatorContextProvider = (props: { children: React.ReactNode }) => {
         "http://localhost:5000/api/investmentOptions"
       )
       .then((response) => {
-
         let newOptions: IDropdownOptionState[] = [];
         response.data.investmentOptions.map((response, index) => {
           newOptions.push({

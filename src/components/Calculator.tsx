@@ -73,7 +73,7 @@ const Calculator = () => {
     {
       menuItem: "Investment Options",
       pane: (
-        <Tab.Pane>
+        <Tab.Pane key="Investment Options">
           <InvestmentOptionDashboard />
         </Tab.Pane>
       ),
@@ -81,7 +81,7 @@ const Calculator = () => {
     {
       menuItem: "ROI",
       pane: (
-        <Tab.Pane>
+        <Tab.Pane key="ROI">
           <ROIResult result={roiResult} />
         </Tab.Pane>
       ),

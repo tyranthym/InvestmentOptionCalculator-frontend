@@ -49,7 +49,6 @@ const InvestmentOptionItem = ({
           selection
           options={dropdownOptions}
           onChange={(e, data) => {
-     
             dropdownOptionContext.updateDropdownOptions(data.value as number);
             let newInvestmentOption = { ...investmentOption };
             newInvestmentOption.investmentOption = data.value as number;
@@ -62,7 +61,7 @@ const InvestmentOptionItem = ({
           labelPosition="right"
           type="text"
           placeholder="Amount%"
-          onChange={(e, data) => {    
+          onChange={(e, data) => {
             let newInvestmentOption = { ...investmentOption };
             newInvestmentOption.investmentPercentage = parseInt(data.value);
             if (!newInvestmentOption.investmentPercentage) {
@@ -84,7 +83,7 @@ const InvestmentOptionItem = ({
           icon
           color="red"
           onClick={(e) =>
-            investmentOptionContext.removeInvestmentOption(investmentOption.id)
+            investmentOptionContext.removeInvestmentOption(investmentOption)
           }
         >
           <Icon name="minus" />
