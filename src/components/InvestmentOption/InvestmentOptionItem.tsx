@@ -82,7 +82,7 @@ const InvestmentOptionItem = ({
         <Input
           labelPosition="right"
           type="text"
-          placeholder="Amount%"
+          placeholder="value between 0 - 100"
           onChange={(e, data) => handleInvestmentPercentageOnChange(e, data)}
         >
           <input type="number" min="0" max="100" />
