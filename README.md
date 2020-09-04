@@ -3,6 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Overview
 - An react app for calculating investment options 
 - typescript strict mode
+- semantic ui react (first time try it) 
 - react hook + context api for state management 
 
 ## Future Improvement
