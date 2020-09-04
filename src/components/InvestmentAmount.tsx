@@ -21,13 +21,7 @@ const InvestmentAmount = () => {
             <Label basic>$</Label>
             <input />
             <Label>AUD</Label>
-          </Input>
-          {/* <Input
-            type="number"
-            placeholder={investmentAmount.totalAmount}
-            defaultValue={investmentAmount.totalAmount}
-            onChange={(e) => updateAvailableAmount(parseInt(e.target.value))}
-          /> */}
+          </Input>          
         </Form.Field>
         <Divider />
         <Form.Field inline>

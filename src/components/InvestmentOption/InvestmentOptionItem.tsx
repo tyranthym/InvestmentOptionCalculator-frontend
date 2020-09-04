@@ -7,6 +7,8 @@ import {
   Dropdown,
   Button,
   Icon,
+  DropdownProps,
+  InputOnChangeData,
 } from "semantic-ui-react";
 import {
   DropdownOptionContext,
@@ -39,6 +41,31 @@ const InvestmentOptionItem = ({
         text: option.description,
       };
     });
+  const handleDropdownOnChange = (
+    event: React.SyntheticEvent<HTMLElement>,
+    data: DropdownProps
+  ) => {
+    dropdownOptionContext.updateDropdownOptions(data.value as number);
+    let newInvestmentOption = { ...investmentOption };
+    newInvestmentOption.investmentOption = data.value as number;
+    dropdownOptionContext.updateInvestmentOptions(newInvestmentOption);
+  };
+
+  const handleInvestmentPercentageOnChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    data: InputOnChangeData
+  ) => {
+    let newInvestmentOption = { ...investmentOption };
+    newInvestmentOption.investmentPercentage = parseInt(data.value);
+    if (!newInvestmentOption.investmentPercentage) {
+      newInvestmentOption.investmentPercentage = 0;
+    }
+    dropdownOptionContext.updateInvestmentOptions(newInvestmentOption);
+    investmentAmountContext.updateInvestmentPercentage(
+      investmentAmountContext.investmentAmount.totalPercentage,
+      newInvestmentOption.investmentPercentage
+    );
+  };
 
   return (
     <FormGroup>
@@ -48,12 +75,7 @@ const InvestmentOptionItem = ({
           fluid
           selection
           options={dropdownOptions}
-          onChange={(e, data) => {
-            dropdownOptionContext.updateDropdownOptions(data.value as number);
-            let newInvestmentOption = { ...investmentOption };
-            newInvestmentOption.investmentOption = data.value as number;
-            dropdownOptionContext.updateInvestmentOptions(newInvestmentOption);
-          }}
+          onChange={(e, data) => handleDropdownOnChange(e, data)}
         />
       </FormField>
       <FormField width={6}>
@@ -61,18 +83,7 @@ const InvestmentOptionItem = ({
           labelPosition="right"
           type="text"
           placeholder="Amount%"
-          onChange={(e, data) => {
-            let newInvestmentOption = { ...investmentOption };
-            newInvestmentOption.investmentPercentage = parseInt(data.value);
-            if (!newInvestmentOption.investmentPercentage) {
-              newInvestmentOption.investmentPercentage = 0;
-            }
-            dropdownOptionContext.updateInvestmentOptions(newInvestmentOption);
-            investmentAmountContext.updateInvestmentPercentage(
-              investmentAmountContext.investmentAmount.totalPercentage,
-              newInvestmentOption.investmentPercentage
-            );
-          }}
+          onChange={(e, data) => handleInvestmentPercentageOnChange(e, data)}
         >
           <input type="number" min="0" max="100" />
           <Label>%</Label>

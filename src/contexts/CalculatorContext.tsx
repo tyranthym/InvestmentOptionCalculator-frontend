@@ -141,6 +141,14 @@ const CalculatorContextProvider = (props: { children: React.ReactNode }) => {
     setInvestmentOptions(
       investmentOptions.filter((option) => option.id !== investmentOption.id)
     );
+    const newInvestmentAmount: IInvestmentAmountState = { ...investmentAmount };
+    newInvestmentAmount.totalPercentage -=
+      investmentOption.investmentPercentage;
+    newInvestmentAmount.availableAmount = calculateAvailableAmount(
+      newInvestmentAmount.totalAmount,
+      newInvestmentAmount.totalPercentage
+    );
+    setInvestmentAmount(newInvestmentAmount);
   };
 
   // InvestmentAmountContext
